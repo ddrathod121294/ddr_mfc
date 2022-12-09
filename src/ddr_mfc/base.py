@@ -38,9 +38,9 @@ class mfc(_fc):
     def read_n(self,n=1,sleep_time=0):
         d1 = _pd.DataFrame()
         for i in range(n):
-            d1 = d1.append()
+            d1 = _pd.concat([d1,_pd.DataFrame(self.get(),index=[i])])
             _time.sleep(sleep_time)
-        d1.columns = [self._name+'_'+ky for ky in d1.keys()]
+        d1.columns = [self.name+'_'+ky for ky in d1.keys()]
         self.data = d1
         return d1
         
