@@ -2,7 +2,7 @@ from setuptools import setup, find_packages
 import sys
 import os 
 
-sys.path.insert(0, os.path.join(os.getcwd(),r'src/ddr_cantera'))
+sys.path.insert(0, os.path.join(os.getcwd(),r'src/ddr_mfc'))
  
 from version import version 
 
@@ -13,7 +13,8 @@ with open('README.md') as readme_file:
 
 requirements = [
     "numpy",
-    "cantera",
+    "alicat",
+    "pandas"
 ]
 
 setup_requirements = []
@@ -21,12 +22,12 @@ setup_requirements = []
 test_requirements = []
 
 setup(
-    name='ddr_cantera',
+    name='ddr_mfc',
     version=version,
     packages=find_packages(where="src"),  # Required
-    url="https://github.com/ddrathod121294/ddr_davis_data",
-    description="Package to calculate air properties using cantera", # Optional
-    keywords='ddr, ddr_cantera', # Optional
+    url="https://github.com/ddrathod121294/ddr_mfc",
+    description="Package to control alict MFC", # Optional
+    keywords='ddr, ddr_mfc', # Optional
 
     python_requires=">=3.6, <4",
     author="Darshan Rathod", # Optional

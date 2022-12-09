@@ -1,32 +1,43 @@
-# ddr_cantera
+# ddr_mfc
 
-To use this project Cantera should be installed in the environment otherwise *module not found error* will arise. Cantera is not installed by uinstalling this package.
-This project includes some basic functionalities with cantera. Most of them includes density calculations using cantera but not all. Most functions calculates properties of air unless otherwise specified.
+Pakcage uses alicat python package to control the alicat made mass flow controllers. This package is built upon that package. By installing this package, alicat is installed automatically as a requirement.
+
+### Install ddr_mfc
+Install ddr_davis_data using pip.
+```py
+pip install ddr_mfc
+```
+### Instantiation
 
 ```py
-import ddr_cantera
+import ddr_mfc
+print(ddr_davis_data.version)
 ```
 
-### Air properties calculation
+    0.0.2
+    
+
+to start the flow controller you will need to know in which port the flow controller is connected. Also the address of the flow controller is required. This can be set from the controller itself. You can go in `menu` in flow controller device and look for `address` in there somewhere. You need different address for different mfc connected with same USB camble to the PC.
 
 ```py
-density = ddr_cantera.get_density(pressure=10, temperature=120)
+mfc1 = ddr_mfc.mfc(port='COM6',address='A',name='mfc_air')
 ```
-returns air density at 10 bars(~ atm) pressure and 120 degree celcius temperature.
+
+By giving the name to the MFC, you can distinguish among the MFC data. The `read` function of the mfc used `name` as a suffix to the variable.
 
 ```py
-mdot = ddr_cantera.LPM_to_kg_per_sec(LPM=100, pressure=10, temperature=120)
+mfc1.read()
 ```
-returns mass flow rate of air in kg/s from LPM.
+
+This will read the data from the MFC.
 
 ```py
-mdot = ddr_cantera.SLPM_to_kg_per_sec(SLPM=100)
+mfc1.set_SLPM(slpm=30)
 ```
-returns mass flow rate of air in kg/s from SLPM. standard temperature is taken as 25 degree celcius and standard pressure is 1 atmosphere.
 
-```py
-a = ddr_cantera.sound_speed(pressure=2, temperature=25)
-```
-returns speed of sound in air. the sound speed is calculated by $\sqrt{\frac{\partial P}{\partial \rho}}$. wherein the gas is first equilibrium at initial TP and then pressure is perturbed and gas is again taken to another equilibrium at constant entropy. Hence from these two states $\partial P$ and $\partial \rho$ can be calculated.
+This will set the SLPM to 30. Sometimes serial communication gives error. These functions uses `try-except` of python to navigate through error of serial comunication.
 
-This code is built upon the code from official cantera tutorials.
+```ddr_mfc.mfc``` class is inherited from `alicat.FlowController` class. Hence the functionalities and documentation on [ALICAT PACKAGE](https://github.com/numat/alicat) will help guide futher.
+
+---
+---

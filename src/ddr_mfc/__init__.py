@@ -6,4 +6,5 @@ Created on Wed Oct 19 12:33:13 2022
 """
 
 from .base import *
+from .version import *
 
